@@ -12,8 +12,10 @@ exports.up = function(knex, Promise) {
       .onDelete("NO ACTION")
       .onUpdate("CASCADE");
 
-    tbl.string("description").notNullable();
-    tbl.string("notes").notNullable();
+    tbl.string("name", 80).notNullable();
+
+    tbl.string("description", 255).notNullable();
+    tbl.string("notes", 128).notNullable();
     tbl.boolean("completed").defaultTo(false);
   });
 };
