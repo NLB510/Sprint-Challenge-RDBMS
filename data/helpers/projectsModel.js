@@ -8,7 +8,18 @@ module.exports = {
 };
 
 function getProjects() {
-  return db("projects");
+  return db("projects")
+  .then(projects => {
+    const result = projects.map(project => {
+      return {
+        ...project,
+        completed: project.completed === 0 ? false : true
+      }
+    })
+
+    return result
+
+  })
 }
 
 
