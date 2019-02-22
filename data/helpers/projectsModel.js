@@ -2,6 +2,7 @@ const db = require("../dbConfig");
 
 module.exports = {
   getProjects,
+  addProject,
   getProjectsById,
   getProjectActions
 };
@@ -18,8 +19,19 @@ function getProjectsById(id) {
 
   return Promise.all(promises).then(function(results) {
     let [project, actions] = results
-    project.actions = actions
-    return project
+    project.actions = actions.map(action => ({
+        ...action,
+        completed: this.completed === 1 ? false : true, 
+      }))
+
+    const result = {
+      ...project, 
+      completed: this.completed === 1 ? false : true, 
+      
+    }
+
+
+    return result
   })
 
 
@@ -36,4 +48,12 @@ function getProjectById(id) {
   return db("projects")
     .where("projects.id", id)
     .first();
+}
+
+
+
+function addProject(project) {
+  return db('projects')
+  .insert(project)
+  .then(([id]) => getProjectById(id))
 }

@@ -57,6 +57,30 @@ router.get("/:id/actions", (req, res) => {
 
 // POST
 
+router.post('/', (req, res) => {
+  const {name, description} = req.body
+
+  if (!name || !description) {
+    return res.status(400).json({
+      errorMessage: "Please add a name and description to the project"
+    })
+  } else {
+    db.addProject(req.body)
+    .then(project => {
+      res.status(201).json({
+        message: "Project added successfully", 
+        project
+      })
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: "There was an error add the project to the database"
+      })
+    })
+  }
+
+
+})
 
 
 
