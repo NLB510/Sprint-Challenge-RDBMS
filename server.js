@@ -13,7 +13,7 @@ server.use(helmet());
 
 // SERVER ROUTES
 server.use("/api/projects", projectsRouter);
-server.use("./api/actions", actionsRouter);
+server.use("/api/actions", actionsRouter);
 
 server.get("/", (req, res) => {
   res.send(`<h1>Hello from the API</h1>`);
