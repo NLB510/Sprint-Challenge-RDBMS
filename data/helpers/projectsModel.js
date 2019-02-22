@@ -21,12 +21,12 @@ function getProjectsById(id) {
     let [project, actions] = results
     project.actions = actions.map(action => ({
         ...action,
-        completed: this.completed === 1 ? false : true, 
+        completed: action.completed === 0 ? false : true, 
       }))
-
+    
     const result = {
       ...project, 
-      completed: this.completed === 1 ? false : true, 
+      completed: project.completed === 0 ? false : true, 
       
     }
 
