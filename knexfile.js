@@ -1,16 +1,21 @@
 // Update with your config settings.
+const pg = require('pg')
+pg.defaults.ssl = true;
+
 
 module.exports = {
   development: {
-    client: "sqlite3",
-    connection: {
-      filename: "./data/sprintDb.sqlite3"
-    },
+    client: "pg",
+    connection: process.env.DATABASE_URL,
     useNullAsDefault: true, 
     migrations: {
       directory: "./data/migrations",
       tableName: "migrations"
     },
-    seeds:{ directory: "./data/seeds"}
+    seeds:{ directory: "./data/seeds"},
+    pool: {
+      min: 2,
+      max: 10
+    }
   }
 };
